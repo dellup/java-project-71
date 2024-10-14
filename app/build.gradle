@@ -3,7 +3,6 @@ plugins {
     id "io.freefair.lombok" version "8.10"
     id 'java'
     id 'checkstyle'
-
 }
 
 group = 'hexlet.code'

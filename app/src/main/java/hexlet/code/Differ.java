@@ -1,16 +1,12 @@
 package hexlet.code;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 public class Differ {
-    public static String generate(TreeMap<String,Object> map1, TreeMap<String,Object> map2) {
+    public static String generate(TreeMap<String, Object> map1, TreeMap<String, Object> map2) {
         var keys1 = map1.navigableKeySet();
         var keys2 = map2.navigableKeySet();
         ArrayList<String> res = new ArrayList<>();

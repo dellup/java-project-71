@@ -1,15 +1,14 @@
 package hexlet.code;
+
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
 import java.io.File;
 import java.util.Map;
 import java.util.TreeMap;
@@ -25,7 +24,9 @@ class App implements Callable<Integer> {
             int exitCode = new CommandLine(new App()).execute(args);
             System.out.println("Hello, World!");
             System.exit(exitCode);
-        }else {System.out.println("Hello, World!");}
+        } else {
+            System.out.println("Hello, World!");
+        }
 
     }
     @Parameters(index = "0", paramLabel = "filepath1", description = "path to first file")
@@ -40,10 +41,10 @@ class App implements Callable<Integer> {
         return Files.readString(writeFilePath);
     }
 
-    public static Map<String, Object> parse(String content) throws Exception{
+    public static Map<String, Object> parse(String content) throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, Object> map
-                = objectMapper.readValue(content, new TypeReference<Map<String,Object>>(){});
+                = objectMapper.readValue(content, new TypeReference<Map<String, Object>>() { });
         return map;
     }
     public static Map<String, Object> getData(String content) throws Exception {
@@ -51,11 +52,12 @@ class App implements Callable<Integer> {
     }
 
     @Override
-    public Integer call() throws Exception{
+    public Integer call() throws Exception {
         try {
             String strJson1 = readFile(filepath1);
             String strJson2 = readFile(filepath2);
-            String gen = generate(new TreeMap<String, Object>(getData(strJson1)), new TreeMap<String, Object>(getData(strJson2)));
+            String gen = generate(new TreeMap<String, Object>(getData(strJson1)),
+                    new TreeMap<String, Object>(getData(strJson2)));
             System.out.println(gen);
         } catch (Exception e) {
             throw new RuntimeException(e);
