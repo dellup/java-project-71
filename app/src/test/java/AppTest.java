@@ -1,3 +1,4 @@
+
 import static hexlet.code.App.getData;
 import static hexlet.code.App.readFile;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -9,8 +10,8 @@ import java.util.TreeMap;
 
 
 public class AppTest {
-    String json1 = "/mnt/c/Users/zenin/ITMO/java-project-71/app/src/test/resources/fixtures/file1.json";
-    String json2 = "/mnt/c/Users/zenin/ITMO/java-project-71/app/src/test/resources/fixtures/file2.json";
+    String json1 = "src/test/resources/fixtures/file1.json";
+    String json2 = "src/test/resources/fixtures/file2.json";
 
     @Test
     public void testReadFile() throws Exception {
