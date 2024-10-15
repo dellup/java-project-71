@@ -18,12 +18,10 @@ import static hexlet.code.Differ.generate;
 
 @Command(name = "gendiff", mixinStandardHelpOptions = true, version = "gendiff 1.0",
         description = "Compares two configuration files and shows a difference.")
-class App implements Callable<Integer> {
+public class App implements Callable<String> {
     public static void main(String[] args) {
         if (args.length > 0) {
             int exitCode = new CommandLine(new App()).execute(args);
-            System.out.println("Hello, World!");
-            System.exit(exitCode);
         } else {
             System.out.println("Hello, World!");
         }
@@ -36,7 +34,7 @@ class App implements Callable<Integer> {
     @Option(names = {"-f", "--format"}, paramLabel = "format", description = "output format [default: stylish]")
     private String format = "stylish";
 
-    public String readFile(File filepath) throws Exception {
+    public static String readFile(File filepath) throws Exception {
         Path writeFilePath = Paths.get(filepath.toURI());
         return Files.readString(writeFilePath);
     }
@@ -52,17 +50,18 @@ class App implements Callable<Integer> {
     }
 
     @Override
-    public Integer call() throws Exception {
+    public String call() throws Exception {
         try {
             String strJson1 = readFile(filepath1);
             String strJson2 = readFile(filepath2);
-            String gen = generate(new TreeMap<String, Object>(getData(strJson1)),
-                    new TreeMap<String, Object>(getData(strJson2)));
+            var map1 = new TreeMap<String, Object>(getData(strJson1));
+            var map2 = new TreeMap<String, Object>(getData(strJson2));
+
+            String gen = generate(map1, map2);
             System.out.println(gen);
+            return gen;
         } catch (Exception e) {
             throw new RuntimeException(e);
-        } finally {
-            return 0;
         }
     }
 }
