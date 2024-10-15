@@ -17,8 +17,14 @@ jobs:
       - uses: gradle/gradle-build-action@v3
         with:
           gradle-version: 8.7
-      - run: cd app && ./gradlew test
-      - run: cd app && ./gradlew build
+      - run:
+          cd app 
+          chmod +x gradlew
+          ./gradlew test
+      - run:
+          cd app
+          chmod +x gradlew
+          ./gradlew build
       # - name: Publish code coverage
       #   uses: paambaati/codeclimate-action@v9.0.0
       #   env:
