@@ -4,17 +4,15 @@ import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.io.File;
-import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.Callable;
 
 import static hexlet.code.Differ.generate;
+import static hexlet.code.Parser.getData;
 
 @Command(name = "gendiff", mixinStandardHelpOptions = true, version = "gendiff 1.0",
         description = "Compares two configuration files and shows a difference.")
@@ -39,23 +37,17 @@ public class App implements Callable<String> {
         return Files.readString(writeFilePath);
     }
 
-    public static Map<String, Object> parse(String content) throws Exception {
-        ObjectMapper objectMapper = new ObjectMapper();
-        Map<String, Object> map
-                = objectMapper.readValue(content, new TypeReference<Map<String, Object>>() { });
-        return map;
-    }
-    public static Map<String, Object> getData(String content) throws Exception {
-        return parse(content);
-    }
-
     @Override
     public String call() throws Exception {
         try {
             String strJson1 = readFile(filepath1);
             String strJson2 = readFile(filepath2);
-            var map1 = new TreeMap<String, Object>(getData(strJson1));
-            var map2 = new TreeMap<String, Object>(getData(strJson2));
+            var map1 = filepath1.toString().substring(filepath1.toString().length()-4).equals("json")
+                    ? new TreeMap<String, Object>(getData(strJson1, "json"))
+                    : new TreeMap<String, Object>(getData(strJson1, "yaml"));
+            var map2 = filepath2.toString().substring(filepath2.toString().length()-4).equals("json")
+                    ? new TreeMap<String, Object>(getData(strJson2, "json"))
+                    : new TreeMap<String, Object>(getData(strJson2, "yaml"));
 
             String gen = generate(map1, map2);
             System.out.println(gen);
