@@ -42,10 +42,10 @@ public class App implements Callable<String> {
         try {
             String strJson1 = readFile(filepath1);
             String strJson2 = readFile(filepath2);
-            var map1 = filepath1.toString().substring(filepath1.toString().length()-4).equals("json")
+            var map1 = filepath1.toString().substring(filepath1.toString().length() - 4).equals("json")
                     ? new TreeMap<String, Object>(getData(strJson1, "json"))
                     : new TreeMap<String, Object>(getData(strJson1, "yaml"));
-            var map2 = filepath2.toString().substring(filepath2.toString().length()-4).equals("json")
+            var map2 = filepath2.toString().substring(filepath2.toString().length() - 4).equals("json")
                     ? new TreeMap<String, Object>(getData(strJson2, "json"))
                     : new TreeMap<String, Object>(getData(strJson2, "yaml"));
 
