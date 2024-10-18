@@ -4,15 +4,13 @@ import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.io.File;
 import java.util.TreeMap;
 import java.util.concurrent.Callable;
 
 import static hexlet.code.Differ.generate;
 import static hexlet.code.Parser.getData;
+import static hexlet.code.Parser.readFile;
 
 @Command(name = "gendiff", mixinStandardHelpOptions = true, version = "gendiff 1.0",
         description = "Compares two configuration files and shows a difference.")
@@ -32,10 +30,6 @@ public class App implements Callable<String> {
     @Option(names = {"-f", "--format"}, paramLabel = "format", description = "output format [default: stylish]")
     private String format = "stylish";
 
-    public static String readFile(File filepath) throws Exception {
-        Path writeFilePath = Paths.get(filepath.toURI());
-        return Files.readString(writeFilePath);
-    }
 
     @Override
     public String call() throws Exception {

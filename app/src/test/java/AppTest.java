@@ -21,6 +21,10 @@ public class AppTest {
                 + "  \"timeout\": 50,\r\n"
                 + "  \"proxy\": \"123.234.53.22\",\r\n"
                 + "  \"follow\": false\r\n"
+                + "  \"obj1\": {\r\n"
+                +   "    \"nestedKey\": \"value\",\r\n"
+                +   "    \"isNested\": true\r\n"
+                +   "  }\r\n"
                 + "}";
         String actual = readFile(new File(json1));
         assertEquals(expected, actual);
@@ -30,7 +34,10 @@ public class AppTest {
         String expected = "host: hexlet.io\n"
                 + "timeout: 50\n"
                 + "proxy: 123.234.53.22\n"
-                + "follow: false";
+                + "follow: false"
+                + "obj1:\n"
+                + "  nestedKey: value\n"
+                + "  isNested: true";
         String actual = readFile(new File(yaml1));
         assertEquals(expected, actual);
     }
@@ -43,6 +50,7 @@ public class AppTest {
         String expected = "{\n"
                 + "  - follow: false\n"
                 + "    host: hexlet.io\n"
+                + "  + obj1: {nestedKey=value, isNested=true}\n"
                 + "  - proxy: 123.234.53.22\n"
                 + "  - timeout: 50\n"
                 + "  + timeout: 20\n"
@@ -61,6 +69,7 @@ public class AppTest {
         String expected = "{\n"
                 + "  - follow: false\n"
                 + "    host: hexlet.io\n"
+                + "  + obj1: {nestedKey=value, isNested=true}\n"
                 + "  - proxy: 123.234.53.22\n"
                 + "  - timeout: 50\n"
                 + "  + timeout: 20\n"
