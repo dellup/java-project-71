@@ -2,7 +2,6 @@ import static hexlet.code.Parser.getData;
 import static hexlet.code.Parser.readFile;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import hexlet.code.Differ;
 import hexlet.code.Formatter;
 import org.junit.jupiter.api.Test;
 import java.io.File;
