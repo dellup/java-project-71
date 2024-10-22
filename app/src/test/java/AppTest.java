@@ -3,6 +3,7 @@ import static hexlet.code.Parser.readFile;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import hexlet.code.Differ;
+import hexlet.code.Formatter;
 import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.util.TreeMap;
@@ -17,28 +18,26 @@ public class AppTest {
     @Test
     public void testReadFileJSon() throws Exception {
         String expected = "{\r\n"
+                + "  \"timeout\": 20,\r\n"
+                + "  \"verbose\": true,\r\n"
                 + "  \"host\": \"hexlet.io\",\r\n"
-                + "  \"timeout\": 50,\r\n"
-                + "  \"proxy\": \"123.234.53.22\",\r\n"
-                + "  \"follow\": false\r\n"
                 + "  \"obj1\": {\r\n"
-                +   "    \"nestedKey\": \"value\",\r\n"
-                +   "    \"isNested\": true\r\n"
-                +   "  }\r\n"
+                + "    \"nestedKey\": \"value\",\r\n"
+                + "    \"isNested\": true\r\n"
+                + "  }\r\n"
                 + "}";
-        String actual = readFile(new File(json1));
+        String actual = readFile(new File(json2));
         assertEquals(expected, actual);
     }
     @Test
     public void testReadFileYaml() throws Exception {
-        String expected = "host: hexlet.io\n"
-                + "timeout: 50\n"
-                + "proxy: 123.234.53.22\n"
-                + "follow: false"
+        String expected = "timeout: 20\n"
+                + "verbose: true\n"
+                + "host: hexlet.io\n"
                 + "obj1:\n"
                 + "  nestedKey: value\n"
                 + "  isNested: true";
-        String actual = readFile(new File(yaml1));
+        String actual = readFile(new File(yaml2));
         assertEquals(expected, actual);
     }
     @Test
@@ -56,7 +55,7 @@ public class AppTest {
                 + "  + timeout: 20\n"
                 + "  + verbose: true\n"
                 + "}";
-        String actual = Differ.generate(map1, map2);
+        String actual = Formatter.stylishFormat(map1, map2);
         assertEquals(expected, actual);
     }
 
@@ -75,7 +74,7 @@ public class AppTest {
                 + "  + timeout: 20\n"
                 + "  + verbose: true\n"
                 + "}";
-        String actual = Differ.generate(map1, map2);
+        String actual = Formatter.stylishFormat(map1, map2);
         assertEquals(expected, actual);
     }
 }

@@ -1,43 +1,32 @@
 package hexlet.code;
 
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.TreeMap;
-import java.util.stream.Collectors;
 
 public class Differ {
-    public static String generate(TreeMap<String, Object> map1, TreeMap<String, Object> map2) {
+    public static TreeMap[] generate(TreeMap<String, Object> map1, TreeMap<String, Object> map2) {
         var keys1 = map1.navigableKeySet();
         var keys2 = map2.navigableKeySet();
-        ArrayList<String> res = new ArrayList<>();
+        var minus = new TreeMap<String, Object>();
+        var plus = new TreeMap<String, Object>();
+        var noDiff = new TreeMap<String, Object>();
         for (String key : keys1) {
             if (!keys2.contains(key)) {
-                res.add(String.valueOf(new StringBuilder("  - ")
-                        .append(key + ": " + map1.get(key))));
+                minus.put(key, map1.get(key));
             } else {
                 if (map1.get(key).equals(map2.get(key))) {
-                    res.add(String.valueOf(new StringBuilder("    ")
-                            .append(key + ": " + map1.get(key))));
+                    noDiff.put(key, map1.get(key));
                 } else {
-                    res.add(String.valueOf(new StringBuilder("  - ")
-                            .append(key + ": " + map1.get(key))));
-                    res.add(String.valueOf(new StringBuilder("  + ")
-                            .append(key + ": " + map2.get(key))));
+                    minus.put(key, map1.get(key));
+                    plus.put(key, map2.get(key));
                 }
             }
         }
         for (String key : keys2) {
             if (!keys1.contains(key)) {
-                res.add(String.valueOf(new StringBuilder("  + ")
-                        .append(key + ": " + map2.get(key))));
+                plus.put(key, map2.get(key));
             }
         }
-        res = (ArrayList<String>) res.stream()
-                .sorted(Comparator.comparing(s -> s.charAt(4)))
-                .collect(Collectors.toList());
-        StringBuilder str = new StringBuilder("{\n");
-        res.forEach(n -> str.append(n + "\n"));
-        str.append("}");
-        return str.toString();
+        var res = new TreeMap[] {minus, plus, noDiff};
+        return res;
     }
 }
