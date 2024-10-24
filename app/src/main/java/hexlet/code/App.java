@@ -8,7 +8,6 @@ import java.io.File;
 import java.util.TreeMap;
 import java.util.concurrent.Callable;
 
-import static hexlet.code.Formatter.stylishFormat;
 import static hexlet.code.Parser.getData;
 import static hexlet.code.Parser.readFile;
 
@@ -46,9 +45,7 @@ public class App implements Callable<String> {
                     ? new TreeMap<String, Object>(getData(strJson2, "json"))
                     : new TreeMap<String, Object>(getData(strJson2, "yaml"));
             String gen = "";
-            if (format.equals("stylish")) {
-                gen = stylishFormat(map1, map2);
-            }
+            gen = Formatter.format(map1, map2, format);
             System.out.println(gen);
             return gen;
         } catch (Exception e) {

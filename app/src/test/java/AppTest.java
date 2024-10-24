@@ -54,7 +54,7 @@ public class AppTest {
                 + "  + timeout: 20\n"
                 + "  + verbose: true\n"
                 + "}";
-        String actual = Formatter.stylishFormat(map1, map2);
+        String actual = Formatter.format(map1, map2, "stylish");
         assertEquals(expected, actual);
     }
 
@@ -73,7 +73,21 @@ public class AppTest {
                 + "  + timeout: 20\n"
                 + "  + verbose: true\n"
                 + "}";
-        String actual = Formatter.stylishFormat(map1, map2);
+        String actual = Formatter.format(map1, map2, "stylish");
+        assertEquals(expected, actual);
+    }
+    @Test
+    public void testGeneratePlain() throws Exception {
+        String strYaml1 = readFile(new File(yaml1));
+        String strYaml2 = readFile(new File(yaml2));
+        var map1 = new TreeMap<String, Object>(getData(strYaml1, "yaml"));
+        var map2 = new TreeMap<String, Object>(getData(strYaml2, "yaml"));
+        String expected = "Property 'follow' was removed\n"
+                + "Property 'obj1' was added with value: [complex value]\n"
+                + "Property 'proxy' was removed\n"
+                + "Property 'timeout' was updated. From 50 to 20\n"
+                + "Property 'verbose' was added with value: true";
+        String actual = Formatter.format(map1, map2, "plain");
         assertEquals(expected, actual);
     }
 }
