@@ -14,7 +14,6 @@ public class Plain implements IFormat {
         var minus = diff[0];
         var plus = diff[1];
         Set<String> sortedKeys = new TreeSet<>(keys1);
-
         sortedKeys.addAll(keys2);
         StringBuilder str = new StringBuilder();
         for (String key : sortedKeys) {
