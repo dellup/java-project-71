@@ -5,7 +5,6 @@ import static hexlet.code.cnst.Style.STYLISH;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static hexlet.code.cnst.Style.PLANE;
 import hexlet.code.Formatter;
-import hexlet.code.cnst.Style;
 import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.util.TreeMap;
