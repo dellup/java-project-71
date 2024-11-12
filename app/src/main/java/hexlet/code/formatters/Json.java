@@ -1,26 +1,13 @@
 package hexlet.code.formatters;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hexlet.code.Differ;
-
 import java.io.File;
 import java.io.IOException;
-import java.util.Set;
 import java.util.TreeMap;
-import java.util.TreeSet;
 
-public class Json implements IFormat {
-    public static String generate(TreeMap<String, Object> map1, TreeMap<String, Object> map2) throws IOException {
-        var keys1 = map1.navigableKeySet();
-        var keys2 = map2.navigableKeySet();
-        var diff = Differ.generate(map1, map2);
-        var minus = diff[0];
-        var plus = diff[1];
-        var noDiff = diff[2];
-        Set<String> sortedKeys = new TreeSet<>(keys1);
-
-        sortedKeys.addAll(keys2);
-        StringBuilder str = new StringBuilder();
+public class Json extends Format {
+    public String generate(TreeMap<String, Object> map1, TreeMap<String, Object> map2) throws IOException {
+        super.init(map1, map2);
         ObjectMapper objectMapper = new ObjectMapper();
         str.append("Before: ").append("\n");
         str.append(minus).append("\n");

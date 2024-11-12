@@ -1,6 +1,13 @@
 package hexlet.code;
 
+import java.io.File;
 import java.util.TreeMap;
+
+import static hexlet.code.App.getFormat;
+import static hexlet.code.FileUtil.readFile;
+import static hexlet.code.Parser.getData;
+import static hexlet.code.cnst.Type.JSON;
+import static hexlet.code.cnst.Type.YAML;
 
 public class Differ {
     public static TreeMap[] generate(TreeMap<String, Object> map1, TreeMap<String, Object> map2) {
@@ -28,5 +35,24 @@ public class Differ {
         }
         var res = new TreeMap[] {minus, plus, noDiff};
         return res;
+    }
+    public static String generateResult(File filepathFirst, File filepathSecond) throws Exception {
+        String strJsonFirst = readFile(filepathFirst);
+        String strJsonSecond = readFile(filepathSecond);
+        TreeMap<String, Object> mapFirst;
+        TreeMap<String, Object> mapSecond;
+        if (filepathFirst.toString().substring(filepathFirst.toString().length() - 4).equals("json")) {
+            mapFirst = new TreeMap<>(getData(strJsonFirst, JSON));
+        } else {
+            mapFirst = new TreeMap<>(getData(strJsonFirst, YAML));
+        }
+        if (filepathSecond.toString().substring(filepathSecond.toString().length() - 4).equals("json")) {
+            mapSecond = new TreeMap<>(getData(strJsonSecond, JSON));
+        } else {
+            mapSecond = new TreeMap<>(getData(strJsonSecond, YAML));
+        }
+        String gen = Formatter.format(mapFirst, mapSecond, getFormat());
+        System.out.println(gen);
+        return gen;
     }
 }
