@@ -27,6 +27,9 @@ public class Differ {
         System.out.println(gen);
         return gen;
     }
+    public static String generate(String filepathFirst, String filepathSecond) throws Exception {
+        return generate(filepathFirst, filepathSecond, getFormat());
+    }
     public static TreeMap[] makeDiff(TreeMap<String, Object> map1, TreeMap<String, Object> map2) {
         var keys1 = map1.navigableKeySet();
         var keys2 = map2.navigableKeySet();
