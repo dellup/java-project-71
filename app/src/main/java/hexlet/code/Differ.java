@@ -1,6 +1,5 @@
 package hexlet.code;
 
-import javax.swing.tree.TreeCellRenderer;
 import java.io.File;
 import java.util.TreeMap;
 
