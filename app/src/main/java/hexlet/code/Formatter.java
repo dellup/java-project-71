@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.TreeMap;
 
 import static hexlet.code.cnst.Style.JSON;
-import static hexlet.code.cnst.Style.PLANE;
+import static hexlet.code.cnst.Style.PLAIN;
 import static hexlet.code.cnst.Style.STYLISH;
 
 public class Formatter {
@@ -19,7 +19,7 @@ public class Formatter {
             case STYLISH:
                 format = new Stylish();
                 return format.generate(map1, map2);
-            case PLANE:
+            case PLAIN:
                 format = new Plain();
                 return format.generate(map1, map2);
             case JSON:

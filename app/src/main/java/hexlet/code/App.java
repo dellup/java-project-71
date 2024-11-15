@@ -43,7 +43,7 @@ public class App implements Callable<String> {
     public String call() throws Exception {
         try {
             setFormat();
-            return Differ.generateResult(filepathFirst, filepathSecond);
+            return Differ.generateResult(filepathFirst, filepathSecond, format);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

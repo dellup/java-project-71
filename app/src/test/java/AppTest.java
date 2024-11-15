@@ -3,7 +3,7 @@ import static hexlet.code.Parser.getData;
 import static hexlet.code.cnst.Style.JSON;
 import static hexlet.code.cnst.Style.STYLISH;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static hexlet.code.cnst.Style.PLANE;
+import static hexlet.code.cnst.Style.PLAIN;
 import hexlet.code.Formatter;
 import org.junit.jupiter.api.Test;
 import java.io.File;
@@ -90,7 +90,7 @@ public class AppTest {
                 + "Property 'proxy' was removed\n"
                 + "Property 'timeout' was updated. From 50 to 20\n"
                 + "Property 'verbose' was added with value: true";
-        String actual = Formatter.format(map1, map2, PLANE);
+        String actual = Formatter.format(map1, map2, PLAIN);
         assertEquals(expected, actual);
     }
     @Test

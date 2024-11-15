@@ -20,12 +20,13 @@ public abstract class Format {
     public void init(TreeMap<String, Object> map1, TreeMap<String, Object> map2) {
         keys1 = map1.navigableKeySet();
         keys2 = map2.navigableKeySet();
-        diff = Differ.generate(map1, map2);
+        diff = Differ.makeDiff(map1, map2);
         minus = diff[0];
         plus = diff[1];
         noDiff = diff[2];
         sortedKeys = new TreeSet<>(keys1);
         sortedKeys.addAll(keys2);
     }
+
     public abstract String generate(TreeMap<String, Object> map1, TreeMap<String, Object> map2) throws IOException;
 }

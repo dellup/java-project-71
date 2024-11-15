@@ -1,5 +1,6 @@
 package hexlet.code;
 
+import javax.swing.tree.TreeCellRenderer;
 import java.io.File;
 import java.util.TreeMap;
 
@@ -10,7 +11,24 @@ import static hexlet.code.cnst.Type.JSON;
 import static hexlet.code.cnst.Type.YAML;
 
 public class Differ {
-    public static TreeMap[] generate(TreeMap<String, Object> map1, TreeMap<String, Object> map2) {
+    public static String generate(String filepathFirst, String filepathSecond, String format) throws Exception {
+        TreeMap<String, Object> mapFirst;
+        TreeMap<String, Object> mapSecond;
+        if (filepathFirst.endsWith("json")) {
+            mapFirst = new TreeMap<>(getData(filepathFirst, JSON));
+        } else {
+            mapFirst = new TreeMap<>(getData(filepathFirst, YAML));
+        }
+        if (filepathSecond.endsWith("json")) {
+            mapSecond = new TreeMap<>(getData(filepathSecond, JSON));
+        } else {
+            mapSecond = new TreeMap<>(getData(filepathSecond, YAML));
+        }
+        String gen = Formatter.format(mapFirst, mapSecond, getFormat());
+        System.out.println(gen);
+        return gen;
+    }
+    public static TreeMap[] makeDiff(TreeMap<String, Object> map1, TreeMap<String, Object> map2) {
         var keys1 = map1.navigableKeySet();
         var keys2 = map2.navigableKeySet();
         var minus = new TreeMap<String, Object>();
@@ -36,23 +54,9 @@ public class Differ {
         var res = new TreeMap[] {minus, plus, noDiff};
         return res;
     }
-    public static String generateResult(File filepathFirst, File filepathSecond) throws Exception {
+    public static String generateResult(File filepathFirst, File filepathSecond, String format) throws Exception {
         String strJsonFirst = readFile(filepathFirst);
         String strJsonSecond = readFile(filepathSecond);
-        TreeMap<String, Object> mapFirst;
-        TreeMap<String, Object> mapSecond;
-        if (filepathFirst.toString().substring(filepathFirst.toString().length() - 4).equals("json")) {
-            mapFirst = new TreeMap<>(getData(strJsonFirst, JSON));
-        } else {
-            mapFirst = new TreeMap<>(getData(strJsonFirst, YAML));
-        }
-        if (filepathSecond.toString().substring(filepathSecond.toString().length() - 4).equals("json")) {
-            mapSecond = new TreeMap<>(getData(strJsonSecond, JSON));
-        } else {
-            mapSecond = new TreeMap<>(getData(strJsonSecond, YAML));
-        }
-        String gen = Formatter.format(mapFirst, mapSecond, getFormat());
-        System.out.println(gen);
-        return gen;
+        return generate(strJsonFirst, strJsonSecond, format);
     }
 }
