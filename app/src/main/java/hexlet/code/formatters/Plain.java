@@ -48,7 +48,7 @@ public class Plain extends Format {
         return value == null ? "null" : value.toString();
     }
     public static String strFormat(String value) {
-        if (value == null) {
+        if (value == null || value.equals("null")) {
             return "null";
         }
         if (value.charAt(0) == '{'
