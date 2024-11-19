@@ -21,6 +21,7 @@ public class Parser {
     }
     public static Map<String, Object> parseJson(String content) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(JsonParser.Feature.ALLOW_COMMENTS, true);
         Map<String, Object> map
                 = objectMapper.readValue(content, new TypeReference<>() { });
         return map;
