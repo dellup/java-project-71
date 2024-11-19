@@ -40,11 +40,14 @@ public class Differ {
             if (!keys2.contains(key)) {
                 minus.put(key, map1.get(key));
             } else {
-                if (map1.get(key).equals(map2.get(key))) {
-                    noDiff.put(key, map1.get(key));
+                Object value1 = map1.get(key);
+                Object value2 = map2.get(key);
+
+                if (value1 != null && value1.equals(value2)) {
+                    noDiff.put(key, value1);
                 } else {
-                    minus.put(key, map1.get(key));
-                    plus.put(key, map2.get(key));
+                    minus.put(key, value1);
+                    plus.put(key, value2);
                 }
             }
         }
@@ -53,8 +56,7 @@ public class Differ {
                 plus.put(key, map2.get(key));
             }
         }
-        var res = new TreeMap[] {minus, plus, noDiff};
-        return res;
+        return new TreeMap[] {minus, plus, noDiff};
     }
     public static String generateResult(File filepathFirst, File filepathSecond, String format) throws Exception {
         String strJsonFirst = readFile(filepathFirst);
