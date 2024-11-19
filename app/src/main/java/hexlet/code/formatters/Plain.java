@@ -8,10 +8,11 @@ public class Plain extends Format {
         for (String key : sortedKeys) {
             if (minus.containsKey(key) && plus.containsKey(key)) {
                 Object valueMinus = minus.get(key);
-                String objMinus = isComplex(valueMinus) ? "[complex value]" : safeToString(valueMinus);
+                String objMinus = isComplex(valueMinus) ? "[complex value]" : toJsonCompatibleString(valueMinus);
 
                 Object valuePlus = plus.get(key);
-                String objPlus = isComplex(valuePlus) ? "[complex value]" : safeToString(valuePlus);
+                String objPlus = isComplex(valuePlus) ? "[complex value]" : toJsonCompatibleString(valuePlus);
+
 
                 str.append("Property ")
                         .append(strFormat(key))
@@ -42,6 +43,18 @@ public class Plain extends Format {
         }
         String stringValue = value.toString();
         return stringValue.startsWith("{") || stringValue.startsWith("[");
+    }
+    private static String toJsonCompatibleString(Object value) {
+        if (value == null) {
+            return "null";
+        }
+        if (value instanceof String) {
+            return "\"" + value + "\"";
+        }
+        if (value instanceof Boolean || value instanceof Number) {
+            return value.toString();
+        }
+        return value.toString().replace("=", ":");
     }
 
     private static String safeToString(Object value) {
