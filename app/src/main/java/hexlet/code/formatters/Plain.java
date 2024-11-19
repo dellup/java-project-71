@@ -48,9 +48,6 @@ public class Plain extends Format {
         if (value == null) {
             return "null";
         }
-        if (value instanceof String) {
-            return "\"" + value + "\"";
-        }
         if (value instanceof Boolean || value instanceof Number) {
             return value.toString();
         }
