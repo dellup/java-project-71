@@ -1,5 +1,6 @@
 package hexlet.code.formatters;
 
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
@@ -9,6 +10,7 @@ public class Json extends Format {
     public String generate(TreeMap<String, Object> map1, TreeMap<String, Object> map2) throws IOException {
         super.init(map1, map2);
         ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(JsonParser.Feature.ALLOW_COMMENTS, true);
         str.append("Before: ").append("\n");
         str.append(minus).append("\n");
         objectMapper.writeValue(new File("src/test/resources/fixtures/minus.json"), minus);
