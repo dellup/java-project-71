@@ -8,37 +8,51 @@ public class Plain extends Format {
         for (String key : sortedKeys) {
             if (minus.containsKey(key) && plus.containsKey(key)) {
                 Object valueMinus = minus.get(key);
-                Object objMinus = valueMinus.toString().charAt(0) == '{'
-                        || valueMinus.toString().charAt(0) == '['
-                        ? "[complex value]" : valueMinus;
+                String objMinus = isComplex(valueMinus) ? "[complex value]" : safeToString(valueMinus);
+
                 Object valuePlus = plus.get(key);
-                Object objPlus = valuePlus.toString().charAt(0) == '{'
-                        || valuePlus.toString().charAt(0) == '['
-                        ? "[complex value]" : valuePlus;
-                str.append("Property " + strFormat(key) + " was updated. ")
-                        .append("From ")
-                        .append(strFormat(objMinus.toString()))
+                String objPlus = isComplex(valuePlus) ? "[complex value]" : safeToString(valuePlus);
+
+                str.append("Property ")
+                        .append(strFormat(key))
+                        .append(" was updated. From ")
+                        .append(strFormat(objMinus))
                         .append(" to ")
-                        .append(strFormat(objPlus.toString()))
+                        .append(strFormat(objPlus))
                         .append("\n");
             } else if (minus.containsKey(key)) {
-                str.append("Property " + strFormat(key) + " was removed\n");
+                str.append("Property ")
+                        .append(strFormat(key))
+                        .append(" was removed\n");
             } else if (plus.containsKey(key)) {
                 Object valuePlus = plus.get(key);
-                Object objPlus = valuePlus.toString().charAt(0) == '{'
-                        || valuePlus.toString().charAt(0) == '['
-                        ? "[complex value]" : strFormat(valuePlus.toString());
-                str.append("Property " + strFormat(key) + " was added ")
-                        .append("with value: ")
+                Object objPlus = isComplex(valuePlus) ? "[complex value]" : strFormat(safeToString(valuePlus));
+                str.append("Property ")
+                        .append(strFormat(key))
+                        .append(" was added with value: ")
                         .append(objPlus)
                         .append("\n");
             }
         }
         return str.toString().substring(0, str.length() - 1);
     }
+    private static boolean isComplex(Object value) {
+        if (value == null) {
+            return false;
+        }
+        String stringValue = value.toString();
+        return stringValue.startsWith("{") || stringValue.startsWith("[");
+    }
+
+    private static String safeToString(Object value) {
+        return value == null ? "null" : value.toString();
+    }
     public static String strFormat(String value) {
-        if (value.toString().charAt(0) == '{'
-                || value.toString().charAt(0) == '['
+        if (value == null) {
+            return "null";
+        }
+        if (value.charAt(0) == '{'
+                || value.charAt(0) == '['
                 || isBoolean(value) || isNumber(value)) {
             return value;
         }
