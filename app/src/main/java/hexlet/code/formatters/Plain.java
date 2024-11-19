@@ -49,7 +49,7 @@ public class Plain extends Format {
     }
     public static String strFormat(String value) {
         if (value == null) {
-            return "null";
+            return "'" + "null" + "'";
         }
         if (value.charAt(0) == '{'
                 || value.charAt(0) == '['
