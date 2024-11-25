@@ -4,7 +4,7 @@ import java.util.TreeMap;
 
 public final class Stylish extends Format {
     public String generate(TreeMap<String, Object> map1, TreeMap<String, Object> map2) {
-        super.init(map1, map2);
+        init(map1, map2);
         StringBuilder str = new StringBuilder("{\n");
         for (String key : getSortedKeys()) {
             if (getMinus().containsKey(key)) {

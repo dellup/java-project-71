@@ -4,7 +4,7 @@ import java.util.TreeMap;
 
 public final class Plain extends Format {
     public String generate(TreeMap<String, Object> map1, TreeMap<String, Object> map2) {
-        super.init(map1, map2);
+        init(map1, map2);
         StringBuilder str = new StringBuilder();
         for (String key : getSortedKeys()) {
             if (getMinus().containsKey(key) && getPlus().containsKey(key)) {

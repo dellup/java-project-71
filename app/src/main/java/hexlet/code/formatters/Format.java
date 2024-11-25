@@ -35,9 +35,6 @@ public abstract class Format {
         return noDiff;
     }
 
-    public StringBuilder getStr() {
-        return str;
-    }
 
     public static void init(TreeMap<String, Object> map1, TreeMap<String, Object> map2) {
         keys1 = map1.navigableKeySet();
