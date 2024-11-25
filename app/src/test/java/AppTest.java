@@ -99,12 +99,25 @@ public class AppTest {
         String strYaml2 = readFile(new File(yaml2));
         TreeMap<String, Object> map1 = new TreeMap<>(getData(strYaml1, "yaml"));
         TreeMap<String, Object> map2 = new TreeMap<>(getData(strYaml2, "yaml"));
-        String expected = "Before: \n"
-                + "{follow=false, proxy=123.234.53.22, timeout=50}\n"
-                + "After: \n"
-                + "{obj1={nestedKey=value, isNested=true}, timeout=20, verbose=true}\n"
-                + "No changes: \n"
-                + "{host=hexlet.io}";
+        String expected = "{\n"
+                          + "  \"After\" : {\n"
+                          + "    \"obj1\" : {\n"
+                          + "      \"nestedKey\" : \"value\",\n"
+                          + "      \"isNested\" : true\n"
+                          + "    },\n"
+                          + "    \"timeout\" : 20,\n"
+                          + "    \"verbose\" : true\n"
+                          + "  },\n"
+                          + "  \"Before\" : {\n"
+                          + "    \"follow\" : false,\n"
+                          + "    \"proxy\" : \"123.234.53.22\",\n"
+                          + "    \"timeout\" : 50\n"
+                          + "  },\n"
+                          + "  \"No changes\" : {\n"
+                          + "    \"host\" : \"hexlet.io\"\n"
+                          + "  }\n"
+                          + "}";
+
         String actual = Formatter.format(map1, map2, JSON);
         assertEquals(expected, actual);
     }
