@@ -5,14 +5,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.TreeMap;
 
-public class Json extends Format {
+public final class Json extends Format {
     @Override
     public String generate(TreeMap<String, Object> map1, TreeMap<String, Object> map2) throws JsonProcessingException {
-        super.init(map1, map2);
+        init(map1, map2);
         TreeMap<String, Object> result = new TreeMap<>();
-        result.put("After", plus);
-        result.put("Before", minus);
-        result.put("No changes", noDiff);
+        result.put("After", getPlus());
+        result.put("Before", getMinus());
+        result.put("No changes", getNoDiff());
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(result);
     }

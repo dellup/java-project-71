@@ -12,10 +12,10 @@ import java.util.TreeMap;
 
 
 public class AppTest {
-    String json1 = "src/test/resources/fixtures/file1.json";
-    String json2 = "src/test/resources/fixtures/file2.json";
-    String yaml1 = "src/test/resources/fixtures/file1.yaml";
-    String yaml2 = "src/test/resources/fixtures/file2.yaml";
+    private String json1 = "src/test/resources/fixtures/file1.json";
+    private String json2 = "src/test/resources/fixtures/file2.json";
+    private String yaml1 = "src/test/resources/fixtures/file1.yaml";
+    private String yaml2 = "src/test/resources/fixtures/file2.yaml";
 
     @Test
     public void testReadFileJSon() throws Exception {

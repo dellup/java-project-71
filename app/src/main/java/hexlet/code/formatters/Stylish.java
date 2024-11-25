@@ -2,22 +2,22 @@ package hexlet.code.formatters;
 
 import java.util.TreeMap;
 
-public class Stylish extends Format {
+public final class Stylish extends Format {
     public String generate(TreeMap<String, Object> map1, TreeMap<String, Object> map2) {
         super.init(map1, map2);
-        str = new StringBuilder("{\n");
-        for (String key : sortedKeys) {
-            if (minus.containsKey(key)) {
+        StringBuilder str = new StringBuilder("{\n");
+        for (String key : getSortedKeys()) {
+            if (getMinus().containsKey(key)) {
                 str.append(new StringBuilder("  - ")
-                        .append(key + ": " + minus.get(key) + "\n"));
+                        .append(key + ": " + getMinus().get(key) + "\n"));
             }
-            if (plus.containsKey(key)) {
+            if (getPlus().containsKey(key)) {
                 str.append(new StringBuilder("  + ")
-                        .append(key + ": " + plus.get(key) + "\n"));
+                        .append(key + ": " + getPlus().get(key) + "\n"));
             }
-            if (noDiff.containsKey(key)) {
+            if (getNoDiff().containsKey(key)) {
                 str.append(new StringBuilder("    ")
-                        .append(key + ": " + noDiff.get(key) + "\n"));
+                        .append(key + ": " + getNoDiff().get(key) + "\n"));
             }
         }
         str.append("}");

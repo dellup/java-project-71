@@ -13,7 +13,7 @@ import static hexlet.code.cnst.Type.YAML;
 
 @Command(name = "gendiff", mixinStandardHelpOptions = true, version = "gendiff 1.0",
         description = "Compares two configuration files and shows a difference.")
-public class App implements Callable<String> {
+public final class App implements Callable<String> {
     public static void main(String[] args) {
         if (args.length > 0) {
             int exitCode = new CommandLine(new App()).execute(args);

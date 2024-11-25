@@ -2,15 +2,16 @@ package hexlet.code.formatters;
 
 import java.util.TreeMap;
 
-public class Plain extends Format {
+public final class Plain extends Format {
     public String generate(TreeMap<String, Object> map1, TreeMap<String, Object> map2) {
         super.init(map1, map2);
-        for (String key : sortedKeys) {
-            if (minus.containsKey(key) && plus.containsKey(key)) {
-                Object valueMinus = minus.get(key);
+        StringBuilder str = new StringBuilder();
+        for (String key : getSortedKeys()) {
+            if (getMinus().containsKey(key) && getPlus().containsKey(key)) {
+                Object valueMinus = getMinus().get(key);
                 String objMinus = isComplex(valueMinus) ? "[complex value]" : toJsonCompatibleString(valueMinus);
 
-                Object valuePlus = plus.get(key);
+                Object valuePlus = getPlus().get(key);
                 String objPlus = isComplex(valuePlus) ? "[complex value]" : toJsonCompatibleString(valuePlus);
 
 
@@ -21,12 +22,12 @@ public class Plain extends Format {
                         .append(" to ")
                         .append(strFormat(objPlus))
                         .append("\n");
-            } else if (minus.containsKey(key)) {
+            } else if (getMinus().containsKey(key)) {
                 str.append("Property ")
                         .append(strFormat(key))
                         .append(" was removed\n");
-            } else if (plus.containsKey(key)) {
-                Object valuePlus = plus.get(key);
+            } else if (getPlus().containsKey(key)) {
+                Object valuePlus = getPlus().get(key);
                 Object objPlus = isComplex(valuePlus) ? "[complex value]" : strFormat(safeToString(valuePlus));
                 str.append("Property ")
                         .append(strFormat(key))
@@ -35,7 +36,7 @@ public class Plain extends Format {
                         .append("\n");
             }
         }
-        return str.toString().substring(0, str.length() - 1);
+        return str.substring(0, str.length() - 1);
     }
     private static boolean isComplex(Object value) {
         if (value == null) {
