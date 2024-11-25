@@ -8,9 +8,13 @@ on:
     branches:
       - main
 
+defaults:
+  run:
+    working-directory: app
+
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -31,12 +35,10 @@ jobs:
 
       - name: Build project
         run: |
-          cd app
-          chmod +x gradlew
           ./gradlew build
 
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs: build
     steps:
       - name: Checkout code
@@ -58,8 +60,6 @@ jobs:
 
       - name: Run tests
         run: |
-          cd app
-          chmod +x gradlew
           ./gradlew test
 
 
