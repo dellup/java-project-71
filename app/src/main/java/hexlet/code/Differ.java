@@ -1,34 +1,22 @@
 package hexlet.code;
 
 import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Map;
 import java.util.TreeMap;
 
-import static hexlet.code.App.getFormat;
+import static hexlet.code.FileUtil.makeTree;
 import static hexlet.code.FileUtil.readFile;
-import static hexlet.code.Parser.getData;
-import static hexlet.code.cnst.Type.JSON;
-import static hexlet.code.cnst.Type.YAML;
+import static hexlet.code.cnst.Style.STYLISH;
 
 public class Differ {
     public static String generate(String filepathFirst, String filepathSecond, String format) throws Exception {
-        String contentFirst = isPath(filepathFirst) ? Files.readString(Path.of(filepathFirst)) : filepathFirst;
-        String contentSecond = isPath(filepathSecond) ? Files.readString(Path.of(filepathSecond)) : filepathSecond;
-        Map<String, Object> mapFirst = getData(contentFirst, filepathFirst.endsWith("json") ? JSON : YAML);
-        Map<String, Object> mapSecond = getData(contentSecond, filepathSecond.endsWith("json") ? JSON : YAML);
-        TreeMap<String, Object> treeFirst = new TreeMap<>(mapFirst);
-        TreeMap<String, Object> treeSecond = new TreeMap<>(mapSecond);
+        TreeMap<String, Object> treeFirst = makeTree(filepathFirst);
+        TreeMap<String, Object> treeSecond = makeTree(filepathSecond);
         String gen = Formatter.format(treeFirst, treeSecond, format);
         System.out.println(gen);
         return gen;
     }
-    private static boolean isPath(String input) {
-        return Files.exists(Path.of(input));
-    }
     public static String generate(String filepathFirst, String filepathSecond) throws Exception {
-        return generate(filepathFirst, filepathSecond, getFormat());
+        return generate(filepathFirst, filepathSecond, STYLISH);
     }
     public static TreeMap[] makeDiff(TreeMap<String, Object> map1, TreeMap<String, Object> map2) {
         var keys1 = map1.navigableKeySet();

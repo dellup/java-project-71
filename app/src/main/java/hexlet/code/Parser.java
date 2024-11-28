@@ -6,14 +6,17 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+
+import hexlet.code.cnst.Type;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
 
 public class Parser {
     public static Map<String, Object> parse(String content, String type) throws Exception {
-        if (type.equals("json")) {
+        if (Objects.equals(type, Type.JSON)) {
             return parseJson(content);
-        } else if (type.equals("yaml")) {
+        } else if (Objects.equals(type, Type.YAML)) {
             return parseYaml(content);
         }
         return new HashMap<>();
