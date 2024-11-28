@@ -35,7 +35,8 @@ public final class App implements Callable<String> {
 
     private static final Map<String, String> FORMAT_MAPPING = Map.of(
             "plain", Style.PLAIN,
-            "json", Style.JSON
+            "json", Style.JSON,
+            "stylish", STYLISH
     );
 
     public static void setFormat(String inputFormat) {
