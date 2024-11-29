@@ -1,6 +1,7 @@
 package hexlet.code;
 
 import java.io.File;
+import java.util.NavigableSet;
 import java.util.TreeMap;
 
 import static hexlet.code.FileUtil.makeTree;
@@ -19,11 +20,11 @@ public class Differ {
         return generate(filepathFirst, filepathSecond, STYLISH);
     }
     public static TreeMap[] makeDiff(TreeMap<String, Object> map1, TreeMap<String, Object> map2) {
-        var keys1 = map1.navigableKeySet();
-        var keys2 = map2.navigableKeySet();
-        var minus = new TreeMap<String, Object>();
-        var plus = new TreeMap<String, Object>();
-        var noDiff = new TreeMap<String, Object>();
+        NavigableSet<String> keys1 = map1.navigableKeySet();
+        NavigableSet<String> keys2 = map2.navigableKeySet();
+        TreeMap<String, Object> minus = new TreeMap<>();
+        TreeMap<String, Object> plus = new TreeMap<>();
+        TreeMap<String, Object> noDiff = new TreeMap<>();
         for (String key : keys1) {
             if (!keys2.contains(key)) {
                 minus.put(key, map1.get(key));
